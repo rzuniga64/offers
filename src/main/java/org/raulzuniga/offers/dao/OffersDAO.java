@@ -38,7 +38,9 @@ public class OffersDAO {
     private NamedParameterJdbcTemplate jdbc;
 
     /** Constructor. */
-    public OffersDAO() { }
+    public OffersDAO() {
+        System.out.println("Succesfully loaded offers DAO");
+    }
 
     /**
      *  Get JDBC connection.

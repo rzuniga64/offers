@@ -31,6 +31,7 @@ public class Initializer implements WebApplicationInitializer {
         mvcContext.refresh();
 
 		// Manage the lifecycle of the root application context
+        // Spring needs to load our config file. -->
 		servletContext.addListener(new ContextLoaderListener(mvcContext));
 
 		// Create the dispatcher servlet's Spring application context

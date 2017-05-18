@@ -3,17 +3,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 
+<sql:query var="rs" dataSource="jdbc:mysql://localhost:3306/springtutorial?user=rzuniga64&password=aggies92">
+    select id, name, email, text from offers
+</sql:query >
+
 <html lang="en">
 
     <body>
         Message: ${message}
 
-        <%-- use name of attribute set in Offers Controller --%>
-        <c:forEach var="row" items="${offers}">
+        <c:forEach var="row" items="${rs.rows}">
             ID ${row.id}<br/>
             Name ${row.name}<br/>
-            EMail ${row.id}<br/>
-            Text ${row.name}<br/>
         </c:forEach>
     </body>
 
