@@ -1,0 +1,21 @@
+body {
+    background-color: cornsilk;
+}
+
+h3 {
+    text-align: center;
+}
+
+.error {
+    font-size: small;
+    color: red;
+}
+
+.valid {
+    font-size: small;
+    color: green;
+}
+
+@-moz-document url-prefix() {
+    fieldset { display: table-cell; }
+}
