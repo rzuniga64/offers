@@ -1,4 +1,4 @@
-package org.raulzuniga.offers;
+package org.raulzuniga.offers.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -14,8 +14,12 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
+    /**
+     * Configure the view resolver.
+     * @param registry view resolver registry
+     */
     @Override
-    public void configureViewResolvers(ViewResolverRegistry registry) {
+    public void configureViewResolvers(final ViewResolverRegistry registry) {
 
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
         resolver.setPrefix("/");

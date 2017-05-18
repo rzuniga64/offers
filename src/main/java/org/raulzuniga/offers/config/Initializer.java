@@ -1,5 +1,6 @@
-package org.raulzuniga.offers;
+package org.raulzuniga.offers.config;
 
+import org.raulzuniga.offers.config.WebMvcConfig;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;

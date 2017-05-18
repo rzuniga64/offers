@@ -56,6 +56,7 @@ public class OffersDAO {
      */
     @Autowired
     public void setNamedParameterJdbcTemplate() {
+
         ClassPathXmlApplicationContext ctx
             = new ClassPathXmlApplicationContext("datasource.xml");
         BasicDataSource dataSource
