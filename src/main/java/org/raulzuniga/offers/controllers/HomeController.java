@@ -18,7 +18,9 @@ package org.raulzuniga.offers.controllers;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.Date;
 import java.util.Map;
@@ -33,10 +35,10 @@ public class HomeController {
 	 * Display the home page.
 	 * @return the home page as a String
 	 */
-	@RequestMapping("/")
-	public String welcome(Map<String, Object> model) {
-		model.put("time", new Date());
-		model.put("message", this.message);
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String welcome(Model model) {
+		model.addAttribute("time", new Date());
+		model.addAttribute("message", this.message);
 		return "index";
 	}
 }

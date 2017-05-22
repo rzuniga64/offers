@@ -10,11 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
-
-//import javax.servlet.http.HttpSession;
 
 /**
  *  OffersController class.
@@ -27,7 +24,9 @@ public class OffersController {
     private OffersService offersService;
 
     /** Default constructor. */
-    public OffersController() { }
+    public OffersController() {
+        System.out.println("Succesfully loaded offers controller");
+    }
 
     /**
      * Set the Offers service.
@@ -37,6 +36,7 @@ public class OffersController {
     @Autowired
     public void setOffersService(final OffersService newOffersService) {
 
+        System.out.println("In setOffersController");
         this.offersService = newOffersService;
     }
 
@@ -53,15 +53,11 @@ public class OffersController {
      *  @param model model
      *  @return a String
      */
-    @RequestMapping("/offers")
+    @RequestMapping(value = "/offers", method = RequestMethod.GET)
     public String showOffers(final Model model) {
 
         List<Offer> offers = offersService.getCurrent();
-
-        /* Model will exist in RequestScope not Session.
-           So the Object is only available during a request. */
-        model.addAttribute("offers", offers);
-
+        model.addAttribute("offersList", offers);
         return "offers";
     }
 
@@ -76,7 +72,7 @@ public class OffersController {
                            @RequestParam("id") final String id) {
 
         System.out.println("Id is: " + id);
-        return "index";
+        return "offers";
     }
 
     /**
@@ -87,6 +83,7 @@ public class OffersController {
     @RequestMapping("/createoffer")
     public String createOffer(final Model model) {
 
+        System.out.println("In createOffers");
         model.addAttribute("offer", new Offer());
 
         return "createoffer";

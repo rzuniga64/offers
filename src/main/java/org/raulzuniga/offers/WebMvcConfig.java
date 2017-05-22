@@ -1,4 +1,4 @@
-package org.raulzuniga.offers.config;
+package org.raulzuniga.offers;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -34,7 +34,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public void configureViewResolvers(final ViewResolverRegistry registry) {
 
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/");
+        resolver.setPrefix("/WEB-INF/jsps/");
         resolver.setSuffix(".jsp");
         resolver.setViewClass(JstlView.class);
         registry.viewResolver(resolver);

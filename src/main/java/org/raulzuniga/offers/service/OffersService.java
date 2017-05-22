@@ -1,7 +1,7 @@
 package org.raulzuniga.offers.service;
 
-import org.raulzuniga.offers.models.Offer;
 import org.raulzuniga.offers.dao.OffersDAO;
+import org.raulzuniga.offers.models.Offer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
