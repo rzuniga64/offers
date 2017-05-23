@@ -50,4 +50,13 @@ public class OffersService {
 
         offersDao.create(offer);
     }
+
+    /**
+     * get offer.
+     * @param id id
+     */
+    public Offer getOffer(final int id) {
+
+        return offersDao.getOffer(id);
+    }
 }
