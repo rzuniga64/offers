@@ -3,10 +3,17 @@
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
       <configuration>
+        <fileset id="spring_boot_org.raulzuniga.OffersApplication" name="OffersApplication" removed="true">
+          <file>file://$MODULE_DIR$/src/main/java/org/raulzuniga/OffersApplication.java</file>
+          <file>file://$MODULE_DIR$/src/main/resources/application.properties</file>
+        </fileset>
         <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/src/main/java/org/raulzuniga/OffersApplication.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/org/raulzuniga/offers/WebMvcConfig.java</file>
           <file>file://$MODULE_DIR$/src/main/resources/datasource.xml</file>
-          <file>file://$MODULE_DIR$/src/main/java/org/raulzuniga/offers/OffersApplication.java</file>
-          <file>file://$MODULE_DIR$/src/main/java/org/raulzuniga/offers/config/WebMvcConfig.java</file>
+        </fileset>
+        <fileset id="fileset2" name="Spring Application Context (2)" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/application.properties</file>
         </fileset>
       </configuration>
     </facet>
@@ -22,6 +29,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-taglibs:4.2.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-web:1.5.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:1.5.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:1.5.3.RELEASE" level="project" />

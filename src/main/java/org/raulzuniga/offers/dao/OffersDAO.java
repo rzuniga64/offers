@@ -6,12 +6,14 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.*;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -148,11 +150,15 @@ public class OffersDAO {
      */
     public boolean create(final Offer offer) {
 
-        BeanPropertySqlParameterSource params =
-                new BeanPropertySqlParameterSource(offer);
-
-        return jdbc.update("insert into springtutorial.offers (name, text, email) "
-                + "values(:name, :text, :email)", params) == 1;
+        return jdbc.update("insert into springtutorial.offers (name, email, text) "
+                + "values(?, ?, ?)", new PreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement preparedStatement) throws SQLException {
+                preparedStatement.setString(1, offer.getName());
+                preparedStatement.setString(2, offer.getEmail());
+                preparedStatement.setString(3, offer.getText());
+            }
+        }) == 1;
     }
 
     /**
