@@ -28,17 +28,13 @@ import java.util.Map;
 @Controller
 public class HomeController {
 
-	@Value("${application.message:Hello World}")
-	private String message = "Hello World";
-
 	/**
 	 * Display the home page.
 	 * @return the home page as a String
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String welcome(Model model) {
-		model.addAttribute("time", new Date());
-		model.addAttribute("message", this.message);
+
 		return "index";
 	}
 }

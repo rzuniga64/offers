@@ -62,20 +62,6 @@ public class OffersController {
     }
 
     /**
-     *  showTest method.
-     *  @param model model
-     *  @param id id
-     *  @return a String
-     */
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public String showTest(final Model model,
-                           @RequestParam("id") final String id) {
-
-        System.out.println("Id is: " + id);
-        return "offers";
-    }
-
-    /**
      *  createOffer method.
      *  @param model model
      *  @return the offers page as a String

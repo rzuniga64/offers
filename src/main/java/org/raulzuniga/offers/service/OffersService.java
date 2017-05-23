@@ -29,6 +29,7 @@ public class OffersService {
      */
     @Autowired
     public void setOffersDao(final OffersDAO newOffersDao) {
+
         this.offersDao = newOffersDao;
     }
 
@@ -37,6 +38,7 @@ public class OffersService {
      *  @return the current list of Offers.
      */
     public List<Offer> getCurrent() {
+
         return offersDao.getOffers();
     }
 
