@@ -13,6 +13,9 @@ public final class Offer {
     @Size(  min = 5, max = 100,
             message = "Name must be between 5 and 100 characters." )
     private String name;
+    /** Email. */
+    //@NotNull
+    //@ValidEmail(min = 6, message = "This email address is not valid.")
     private String email;
     /** Text. */
     @Size(  min = 20, max = 100,

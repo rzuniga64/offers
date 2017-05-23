@@ -25,18 +25,6 @@ public @interface ValidEmail {
     String message() default "This does not appear to be a valid email address";
 
     /**
-     *  Groups method.
-     *  @return an array of type Class.
-     */
-    Class<?>[] groups() default { };
-
-    /**
-     *  Payload method.
-     *  @return an array of type Class
-     */
-    Class<? extends Payload>[] payload() default { };
-
-    /**
      * min method.
      * @return the minimum
      */
