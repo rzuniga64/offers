@@ -4,6 +4,7 @@ import org.raulzuniga.offers.models.Offer;
 import org.raulzuniga.offers.service.OffersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.sql.SQLSyntaxErrorException;
 import java.util.List;
 
 /**
@@ -45,6 +47,11 @@ public class OffersController {
 
     @ExceptionHandler(DataAccessException.class)
     public String handleDatabaseException(DataAccessException ex) {
+        return "error";
+    }
+
+    @ExceptionHandler(SQLSyntaxErrorException.class)
+    public String handleSQLSyntaxErrorException(SqlParameterSourceUtils ex) {
         return "error";
     }
 
