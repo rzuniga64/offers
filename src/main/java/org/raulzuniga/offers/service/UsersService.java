@@ -3,6 +3,7 @@ package org.raulzuniga.offers.service;
 
 import org.raulzuniga.offers.dao.UsersDAO;
 import org.raulzuniga.offers.models.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class UsersService {
      *  set the Users data access object.
      *  @param newUsersDao offersDao
      */
-    @Resource
+    @Autowired
     public void setUsersDao(final UsersDAO newUsersDao) {
         this.usersDao = newUsersDao;
     }
