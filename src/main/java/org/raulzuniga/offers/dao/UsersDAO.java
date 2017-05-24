@@ -9,10 +9,10 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,8 +38,8 @@ public class UsersDAO {
      *  Get JDBC connection.
      *  @return JDBC connection
      */
-    public JdbcTemplate getJdbc() {
-        return jdbc;
+    public JdbcTemplate getJdbcTemplate() {
+        return this.jdbc;
     }
 
     /**
@@ -60,10 +60,9 @@ public class UsersDAO {
      *  Pass a DataSource instead of a JdbcTemplate to get access to some great
      *  methods from DataSource which comes from org.apache.commons.dbcp.
      *  BasicDataSource.
-     *  @param newJdbc newJdbc
      */
     @Autowired
-    public void setJdbcTemplate(final DataSource newJdbc) {
+    public void setJdbcTemplate() {
         this.jdbc = new JdbcTemplate(dataSource());
     }
 
@@ -100,9 +99,10 @@ public class UsersDAO {
      * @return true if exists; false otherwise
      */
     public boolean exists(final String username) {
-        return jdbc.queryForObject("select count(*) from springtutorial.users where binary username=:username",
-                new MapSqlParameterSource("username", username), Integer.class) > 0;
 
+        SqlRowSet srs = getJdbcTemplate().queryForRowSet("select count(*) "
+               + "from springtutorial.users where binary username=:username");
+        return (srs.next());
     }
 
     /**
