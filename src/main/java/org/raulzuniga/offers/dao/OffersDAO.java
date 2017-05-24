@@ -89,20 +89,7 @@ public class OffersDAO {
 
         MapSqlParameterSource params = new MapSqlParameterSource("id", id);
 
-        return jdbc.queryForObject("select * from offers where id = :id", new RowMapper<Offer>() {
-
-            public Offer mapRow(ResultSet resultSet, int i)
-                    throws SQLException {
-
-                Offer offer = new Offer();
-                offer.setId(resultSet.getInt("id"));
-                offer.setName(resultSet.getString("name"));
-                offer.setText(resultSet.getString("text"));
-                offer.setEmail(resultSet.getString("email"));
-
-                return offer;
-            }
-        });
+        return jdbc.queryForObject("select * from offers where id = :id", Offer.class);
     }
 
     /**
