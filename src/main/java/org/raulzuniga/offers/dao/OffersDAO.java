@@ -75,7 +75,7 @@ public class OffersDAO {
      *  BasicDataSource.
      */
     @Autowired
-    public void setNamedParameterJdbcTemplate() {
+    public void setJdbcTemplate() {
 
         this.jdbc = new JdbcTemplate(dataSource());
     }
