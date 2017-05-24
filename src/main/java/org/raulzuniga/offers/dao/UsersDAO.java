@@ -1,10 +1,14 @@
 package org.raulzuniga.offers.dao;
 
 import org.raulzuniga.offers.models.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +25,8 @@ import java.util.List;
 public class UsersDAO {
 
     /** JDBC template. */
-    private NamedParameterJdbcTemplate jdbc;
+    private JdbcTemplate jdbc;
+
     /** Password encoder. */
     //@Resource
     //private PasswordEncoder passwordEncoder;
@@ -33,8 +38,21 @@ public class UsersDAO {
      *  Get JDBC connection.
      *  @return JDBC connection
      */
-    public NamedParameterJdbcTemplate getJdbc() {
+    public JdbcTemplate getJdbc() {
         return jdbc;
+    }
+
+    /**
+     *  To configure your own DataSource define a @Bean of that type in your
+     *  configuration. Spring Boot will reuse your DataSource anywhere one is
+     *  required, including database initialization.
+     */
+    @Bean
+    @ConfigurationProperties("spring.datasource")
+    public DataSource dataSource() {
+        ClassPathXmlApplicationContext ctx
+                = new ClassPathXmlApplicationContext("datasource.xml");
+        return (DataSource) ctx.getBean("dataSource");
     }
 
     /**
@@ -44,9 +62,9 @@ public class UsersDAO {
      *  BasicDataSource.
      *  @param newJdbc newJdbc
      */
-    @Resource
-    public void setNamedParameterJdbcTemplate(final DataSource newJdbc) {
-        this.jdbc = new NamedParameterJdbcTemplate(newJdbc);
+    @Autowired
+    public void setJdbcTemplate(final DataSource newJdbc) {
+        this.jdbc = new JdbcTemplate(dataSource());
     }
 
     /**
