@@ -1,13 +1,19 @@
 package org.raulzuniga.offers;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+
+import javax.sql.DataSource;
 
 /**
  * WebMvcConfig class.
@@ -16,6 +22,20 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 @ComponentScan
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
+
+    /**
+     *  To configure your own DataSource define a @Bean of that type in your
+     *  configuration. Spring Boot will reuse your DataSource anywhere one is
+     *  required, including database initialization.
+     */
+    @Bean
+    @ConfigurationProperties("spring.datasource")
+    public static DataSource dataSource() {
+
+        ClassPathXmlApplicationContext ctx
+                = new ClassPathXmlApplicationContext("datasource.xml");
+        return (DataSource) ctx.getBean("dataSource");
+    }
 
     /**
      *  Add resource handler.
