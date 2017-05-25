@@ -7,6 +7,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -91,12 +93,9 @@ public class UsersDAO {
      */
     public boolean exists(final String username) {
 
-       // MapSqlParameterSource params
-                //= new MapSqlParameterSource("username", username);
-
-        //SqlRowSet srs = getJdbcTemplate().queryForRowSet("select count(*) from springtutorial.users where binary username=:username", params);
-        //return (srs.next());
-        return false;
+        return jdbc.queryForObject("select count(*) "
+                + "from springtutorial.users "
+                + "where binary username=?", Integer.class, username) > 0;
     }
 
     /**
