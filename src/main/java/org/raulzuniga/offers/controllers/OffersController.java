@@ -92,8 +92,7 @@ public class OffersController {
      * @return the web page as a String
      */
     @RequestMapping(value = "/docreate", method = RequestMethod.POST)
-    public String doCreate(final Model model,
-                           @Valid final Offer offer,
+    public String doCreate(@Valid final Offer offer,
                            final BindingResult result) {
 
         if (result.hasErrors()) {
