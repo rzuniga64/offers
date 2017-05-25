@@ -82,6 +82,22 @@ public class User {
     }
 
     /**
+     * getEmail.
+     * @return email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * setEmail.
+     * @param newEmail newEmail
+     */
+    public void setEmail(final String newEmail) {
+        this.email = newEmail;
+    }
+
+    /**
      * isEnabled?
      * @return true if enabled;false otherwise
      */
@@ -111,22 +127,6 @@ public class User {
      */
     public void setAuthority(final String newAuthority) {
         this.authority = newAuthority;
-    }
-
-    /**
-     * getEmail.
-     * @return email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * setEmail.
-     * @param newEmail newEmail
-     */
-    public void setEmail(final String newEmail) {
-        this.email = newEmail;
     }
 }
 
