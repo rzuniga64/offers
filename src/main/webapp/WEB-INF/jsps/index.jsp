@@ -15,16 +15,24 @@
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
           crossorigin="anonymous">
-    <link href="../static/css/style.css" rel="stylesheet" type="text/css">
+
+    <spring:url value="/css/main.css" var="springCss" />
+    <link href="${springCss}" rel="stylesheet" />
+
 </head>
 
     <body>
 
+        <h1>H1</h1>
+        <h2>H2</h2>
+
+
+
     <p><a href="${pageContext.request.contextPath}/offers">Show current offers.</a></p>
     <p><a href="${pageContext.request.contextPath}/createoffer">Add a new offer.</a></p>
 
-    <p><c:url var="loginUrl" value="#"/></p>
-    <p><c:url var="logoutUrl" value="#"/></p>
+    <p><c:url var="loginUrl" value="/login"/></p>
+    <p><c:url var="logoutUrl" value="/logout"/></p>
 
     <sec:authorize access="!isAuthenticated()">
         <form action="${loginUrl}" method="post">
@@ -41,7 +49,7 @@
     </sec:authorize>
 
     <!--sec:authorize access="(hasRole('ROLE_ADMIN'))"-->
-    <p><c:url var="adminUrl" value="#"/></p>
+    <p><c:url var="adminUrl" value="/admin"/></p>
     <form action="${adminUrl}" method="post">
         <input type="submit" value="Admin" />
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

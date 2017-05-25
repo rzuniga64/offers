@@ -70,6 +70,6 @@
 
             </sf:form>
         </div>
-    <p><a href="<c:url value='/newaccount'/>">Create new account</a></p>
+    <p><a href="${pageContext.request.contextPath}/newaccount">Create new account</a></p>
     </body>
 </html>
