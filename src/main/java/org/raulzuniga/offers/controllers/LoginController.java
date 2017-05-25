@@ -1,6 +1,7 @@
 package org.raulzuniga.offers.controllers;
 
 
+import org.raulzuniga.offers.models.Authority;
 import org.raulzuniga.offers.models.User;
 import org.raulzuniga.offers.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,14 +97,14 @@ public class LoginController {
      * @return the user as a String
      */
     @RequestMapping(value = "/createaccount", method = RequestMethod.POST)
-    public String createAccount(@Valid final User user,
+    public String createAccount(@Valid final User user, final Authority authority,
                                 final BindingResult result) {
 
         if (result.hasErrors()) {
             return "newaccount";
         }
 
-        user.setAuthority("ROLE_USER");
+        authority.setAuthority("ROLE_USER");
         user.setEnabled(true);
 
         if (usersService.exists(user.getUsername())) {
@@ -112,7 +113,7 @@ public class LoginController {
         }
 
         try {
-            usersService.create(user);
+            usersService.create(user, authority);
         } catch (DuplicateKeyException e) {
             result.rejectValue("username", "DuplicateKey.user.username");
             return "newaccount";
