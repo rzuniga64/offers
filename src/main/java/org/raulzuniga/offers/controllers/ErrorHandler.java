@@ -20,6 +20,7 @@ public class ErrorHandler {
      */
     @ExceptionHandler(DataAccessException.class)
     public String handleDatabaseException(final DataAccessException ex) {
+
         ex.printStackTrace();
         return "error";
     }
@@ -32,6 +33,7 @@ public class ErrorHandler {
     @ExceptionHandler(AccessDeniedException.class)
     public String handleAccessException(final AccessDeniedException ex) {
 
+        ex.printStackTrace();
         return "denied";
     }
 
@@ -43,6 +45,7 @@ public class ErrorHandler {
     @ExceptionHandler(SQLSyntaxErrorException.class)
     public String handleAccessException(final SQLSyntaxErrorException ex) {
 
+        ex.printStackTrace();
         return "denied";
     }
 }
