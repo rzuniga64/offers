@@ -1,5 +1,6 @@
 package org.raulzuniga.offers.dao;
 
+import org.raulzuniga.offers.models.Authority;
 import org.raulzuniga.offers.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -7,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -50,6 +53,7 @@ public class UsersDAO {
     @Bean
     @ConfigurationProperties("spring.datasource")
     public DataSource dataSource() {
+
         ClassPathXmlApplicationContext ctx
                 = new ClassPathXmlApplicationContext("datasource.xml");
         return (DataSource) ctx.getBean("dataSource");
@@ -75,22 +79,27 @@ public class UsersDAO {
      * @return true if an Offer object is returned; false otherwise
      */
     @Transactional
-    public boolean create(final User user) {
-
-        MapSqlParameterSource params = new MapSqlParameterSource();
-
-        params.addValue("username", user.getUsername());
-        // params.addValue("password", passwordEncoder.encode(user.getPassword()));
-        params.addValue("password", user.getPassword());
-        params.addValue("email", user.getEmail());
-        params.addValue("enabled", user.isEnabled());
-        params.addValue("authority", user.getAuthority());
+    public boolean create(final User user, final Authority authority) {
 
         jdbc.update("insert into springtutorial.users (username, password, email, enabled) "
-                + "values(:username, :password, :email, :enabled)", params);
+                + "values(?, ?, ?, ?)", new PreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement ps) throws SQLException {
+                ps.setString(1, user.getUsername());
+                ps.setString(2, user.getPassword());
+                ps.setString(3, user.getEmail());
+                ps.setBoolean(4, user.getEnabled());
+            }
+        });
 
         return jdbc.update("insert into springtutorial.authorities (username, authority) "
-                + "values(:username, :authority)", params) == 1;
+                + "values(?, ?)", new PreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement ps) throws SQLException {
+                ps.setString(1, authority.getUsername());
+                ps.setString(2, authority.getAuthority());
+            }
+        }) == 1;
     }
 
     /**
@@ -100,9 +109,12 @@ public class UsersDAO {
      */
     public boolean exists(final String username) {
 
-        SqlRowSet srs = getJdbcTemplate().queryForRowSet("select count(*) "
-               + "from springtutorial.users where binary username=:username");
-        return (srs.next());
+       // MapSqlParameterSource params
+                //= new MapSqlParameterSource("username", username);
+
+        //SqlRowSet srs = getJdbcTemplate().queryForRowSet("select count(*) from springtutorial.users where binary username=:username", params);
+        //return (srs.next());
+        return false;
     }
 
     /**
