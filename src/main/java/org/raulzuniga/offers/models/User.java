@@ -85,7 +85,7 @@ public class User {
      * isEnabled?
      * @return true if enabled;false otherwise
      */
-    public boolean isEnabled() {
+    public boolean getEnabled() {
         return enabled;
     }
 
