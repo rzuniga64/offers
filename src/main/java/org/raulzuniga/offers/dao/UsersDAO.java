@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -115,6 +116,7 @@ public class UsersDAO {
      *  Get all users. Alternative method to getAllUsers (not used).
      *  @return offers
      */
+    //@Secured("ROLE_ADMIN") // method-level security.
     public List<User> getUsers() {
 
         return jdbc.query("select * from springtutorial.users, "
