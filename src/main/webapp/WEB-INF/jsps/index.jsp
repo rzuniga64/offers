@@ -48,13 +48,13 @@
         </form>
     </sec:authorize>
 
-    <!--sec:authorize access="(hasRole('ROLE_ADMIN'))"-->
+    <sec:authorize access="(hasRole('ROLE_ADMIN'))">
     <p><c:url var="adminUrl" value="/admin"/></p>
     <form action="${adminUrl}" method="post">
         <input type="submit" value="Admin" />
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     </form>
-    <!--/sec:authorize-->
+    </sec:authorize>
 
     </body>
 
