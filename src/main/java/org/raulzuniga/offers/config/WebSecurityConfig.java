@@ -1,4 +1,4 @@
-package org.raulzuniga.offers;
+package org.raulzuniga.offers.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/denied").permitAll()
                 .antMatchers("/error").permitAll()
                 .antMatchers("/resource/**").permitAll()
+                .antMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
