@@ -116,7 +116,7 @@ public class UsersDAO {
      *  Get all users. Alternative method to getAllUsers (not used).
      *  @return offers
      */
-    //@Secured("ROLE_ADMIN") // method-level security.
+    @Secured("ROLE_ADMIN") // method-level security.
     public List<User> getUsers() {
 
         return jdbc.query("select * from springtutorial.users, "

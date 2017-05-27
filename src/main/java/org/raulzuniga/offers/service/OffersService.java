@@ -3,6 +3,7 @@ package org.raulzuniga.offers.service;
 import org.raulzuniga.offers.dao.OffersDAO;
 import org.raulzuniga.offers.models.Offer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,6 +47,7 @@ public class OffersService {
      * Create an offer.
      * @param offer offer
      */
+    @Secured({"ROLE_USER, ROLE_ADMIN" })
     public void create(final Offer offer) {
 
         offersDao.create(offer);
