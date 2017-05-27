@@ -1,10 +1,13 @@
 package org.raulzuniga.offers;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -37,6 +40,13 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         return (DataSource) ctx.getBean("dataSource");
     }
 
+    @Bean
+    public MessageSource messageSource() {
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasenames("messages-en-US");
+        messageSource.setDefaultEncoding("UTF-8");
+        return messageSource;
+    }
     /**
      *  Add resource handler.
      *  @param registry registry

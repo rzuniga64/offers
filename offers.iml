@@ -7,9 +7,14 @@
           <file>file://$MODULE_DIR$/src/main/java/org/raulzuniga/OffersApplication.java</file>
           <file>file://$MODULE_DIR$/src/main/resources/application.properties</file>
         </fileset>
+        <fileset id="spring_boot_org.raulzuniga.offers.OffersApplication" name="OffersApplication" removed="true">
+          <file>file://$MODULE_DIR$/src/main/java/org/raulzuniga/offers/OffersApplication.java</file>
+          <file>file://$MODULE_DIR$/src/main/resources/application.properties</file>
+        </fileset>
         <fileset id="fileset" name="Spring Application Context" removed="false">
-          <file>file://$MODULE_DIR$/src/main/java/org/raulzuniga/OffersApplication.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/org/raulzuniga/offers/OffersApplication.java</file>
           <file>file://$MODULE_DIR$/src/main/java/org/raulzuniga/offers/WebMvcConfig.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/org/raulzuniga/offers/config/WebSecurityConfig.java</file>
           <file>file://$MODULE_DIR$/src/main/resources/datasource.xml</file>
         </fileset>
         <fileset id="fileset2" name="Spring Application Context (2)" removed="false">
