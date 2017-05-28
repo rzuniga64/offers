@@ -44,7 +44,7 @@
                 </div>
                 <div class="form-group">
                 <label for="password">Password</label>
-                <sf:input type="text"
+                <sf:input type="password"
                           class="form-control"
                           id="password"
                           name="password"
@@ -57,8 +57,8 @@
                     <label for="password">Remember me</label>
                     <input type="checkbox"
                               class="form-control"
-                              id="_spring_security"
-                              name="_spring_security"
+                              id="_spring_security_remember_me"
+                              name="_spring_security_remember_me"
                               path=" "
                               checked="checked"/>
                     <br />
