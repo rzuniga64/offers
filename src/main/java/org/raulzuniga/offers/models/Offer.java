@@ -9,18 +9,17 @@ public final class Offer {
 
     /** ID. */
     private int id;
-    /** Name. */
-    @Size(  min = 5, max = 100,
-            message = "Name must be between 5 and 100 characters." )
-    private String name;
-    /** Email. */
-    //@NotNull
-    //@ValidEmail(min = 6, message = "This email address is not valid.")
-    private String email;
+
     /** Text. */
     @Size(  min = 20, max = 100,
             message = "Text must be between 20 and 100 characters." )
     private String text;
+
+    /** User. */
+    private User user;
+
+    /** User. */
+    private String username;
 
     /** Default Constructor. */
     public Offer() { }
@@ -28,29 +27,24 @@ public final class Offer {
     /**
      * Constructor.
      *  @param newId newId
-     *  @param newName newName
-     *  @param newEmail newEmail
+     *  @param newUser newUser
      *  @param newText newText
      */
-    public Offer(final int newId, final String newName,
-                 final String newEmail, final String newText) {
+    public Offer(final int newId, final User newUser, final String newText) {
 
         this.id = newId;
-        this.name = newName;
-        this.email = newEmail;
+        this.user = newUser;
         this.text = newText;
     }
 
     /**
      * Constructor.
-     *  @param newName newName
-     *  @param newEmail newEmail
+     *  @param newUser newUser
      *  @param newText newText
      */
-    public Offer(final String newName, final String newEmail,
-                 final String newText) {
-        this.name = newName;
-        this.email = newEmail;
+    public Offer(final User newUser, final String newText) {
+
+        this.user = newUser;
         this.text = newText;
     }
 
@@ -71,38 +65,6 @@ public final class Offer {
     }
 
     /**
-     *  Get the name.
-     *  @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     *  Set the name.
-     *  @param newName newName
-     */
-    public void setName(final String newName) {
-        this.name = newName;
-    }
-
-    /**
-     *  Get the email.
-     *  @return the email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * Set the email.
-     * @param newEmail newEmail
-     */
-    public void setEmail(final String newEmail) {
-        this.email = newEmail;
-    }
-
-    /**
      *  Get the text.
      * @return the text.
      */
@@ -119,12 +81,79 @@ public final class Offer {
     }
 
     /**
+     *  Get the user.
+     * @return the user.
+     */
+    public User getUser() {
+        return user;
+    }
+
+    /**
+     *  Set user.
+     *  @param newUser newUser
+     */
+    public void setUser(User newUser) {
+
+        this.user = newUser;
+    }
+
+    /**
+     *  Get the username.
+     * @return the username.
+     */
+    public String getUsername() {
+        return user.getUsername();
+    }
+
+    /**
+     * hashCode method.
+     * @return the hashcode
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((text == null) ? 0 : text.hashCode());
+        result = prime * result + ((user == null) ? 0 : user.hashCode());
+        return result;
+    }
+
+    /**
+     * Equals method.
+     * @param obj obj
+     * @return true if equal; false otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Offer other = (Offer) obj;
+        if (text == null) {
+            if (other.text != null)
+                return false;
+        } else if (!text.equals(other.text))
+            return false;
+        if (user == null) {
+            if (other.user != null)
+                return false;
+        } else if (!user.equals(other.user))
+            return false;
+        return true;
+    }
+
+    /**
      * toString method.
-     * @return data as a String.
+     * @return Offer state as a string.
      */
     @Override
     public String toString() {
-        return "Offer [id=" + id + ", name=" + name + ", email=" + email
-                + ", text=" + text + "]";
+        return "Offer [id=" + id + ", text=" + text + ", user=" + user + "]";
     }
+
+
 }
