@@ -41,7 +41,7 @@ public class UsersDaoTests {
 	@Test
 	public void testCreate() {
 
-		User user = new User("rzuniga64", "aggies92", "rzuniga64@gmail.com", "Raul Zuniga", true, "ROLE_ADMIN");
+		User user = new User("rzuniga64", "aggies92", "Raul Zuniga", "rzuniga64@gmail.com", true, "ROLE_ADMIN");
 
 		assertTrue("User creation should return true", usersDao.create(user));
 

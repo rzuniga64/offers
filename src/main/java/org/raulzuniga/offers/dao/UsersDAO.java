@@ -63,16 +63,16 @@ public class UsersDAO {
     @Transactional
     public boolean create(final User user) {
 
-        return jdbc.update("insert into springtutorial.users (username, password, authority, name, email, enabled) "
+        return jdbc.update("insert into springtutorial.users (username, password, name, email, enabled, authority) "
                 + "values(?, ?, ?, ?, ?, ?)", new PreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps) throws SQLException {
                 ps.setString(1, user.getUsername());
                 ps.setString(2, user.getPassword());
-                ps.setString(3, user.getAuthority());
-                ps.setString(4, user.getName());
-                ps.setString(5, user.getEmail());;
-                ps.setBoolean(6, user.getEnabled());
+                ps.setString(3, user.getName());
+                ps.setString(4, user.getEmail());;
+                ps.setBoolean(5, user.getEnabled());
+                ps.setString(6, user.getAuthority());
             }
         }) ==1 ;
     }
