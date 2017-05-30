@@ -1,4 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `springtutorial` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE IF NOT EXISTS `springtutorial` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `springtutorial`;
 -- MySQL dump 10.13  Distrib 5.5.24, for osx10.5 (i386)
 --
@@ -23,33 +23,30 @@ USE `springtutorial`;
 
 DROP TABLE IF EXISTS `offers`;
 DROP TABLE IF EXISTS `users`;
-DROP TABLE IF EXISTS `authorities`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `offers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  `email` varchar(60) NOT NULL,
+  `username` varchar(100) NOT NULL,
   `text` text NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`, `username`),
+  INDEX `fk_offers_users_idx`(`username` ASC),
+  CONSTRAINT `fk_offers_users`
+  FOREIGN KEY (`username`)
+  REFERENCES `users`(`username`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(60) NOT NULL,
   `password` varchar(80) NOT NULL,
-  `email` varchar(60) NOT NULL,
-  `enabled` bool NOT NULL DEFAULT TRUE ,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
-CREATE TABLE `authorities` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(60) NOT NULL,
+  `name` varchar(100) NOT NULL,
   `authority` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
+  `email` varchar(60) NOT NULL,
+  `enabled` bool NOT NULL DEFAULT TRUE,
+  PRIMARY KEY (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

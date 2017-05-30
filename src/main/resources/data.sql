@@ -1,24 +1,19 @@
 --
--- Dumping data for tables
+-- Dumping data for table `offers`
 --
 
 LOCK TABLES `offers` WRITE;
 /*!40000 ALTER TABLE `offers` DISABLE KEYS */;
-INSERT INTO `offers` VALUES (1,'Bob','bob@nowhereatall.com','I will write Java for you'),(2,'Mike','mike@nowhereatall.com','Web design, very cheap'),(3,'Sue','sue@nowhereatall.com','PHP coding');
+INSERT INTO `offers` VALUES (1,'Bob','I will write Java for you'),(2,'Mike', 'Web design, very cheap'),(3,'Sue', 'PHP coding');
 /*!40000 ALTER TABLE `offers` ENABLE KEYS */;
 UNLOCK TABLES;
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'rzuniga64','aggies92','rzuniga64@gmail.com', '1');
+INSERT INTO `users` VALUES ('rzuniga64','aggies92','Raul Zuniga','ROLE_ADMIN','rzuniga64@gmail.com', true);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
-LOCK TABLES `authorities` WRITE;
-/*!40000 ALTER TABLE `authorities` DISABLE KEYS */;
-INSERT INTO `authorities` VALUES (1,'rzuniga64','ROLE_ADMIN');
-/*!40000 ALTER TABLE `authorities` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
