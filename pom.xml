@@ -81,6 +81,11 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+
         <!-- Validators -->
         <dependency>
             <groupId>org.hibernate</groupId>
