@@ -2,13 +2,11 @@ package org.raulzuniga.offers.service;
 
 
 import org.raulzuniga.offers.dao.UsersDAO;
-import org.raulzuniga.offers.models.Authority;
 import org.raulzuniga.offers.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -39,9 +37,9 @@ public class UsersService {
      * Create a user.
      * @param user user
      */
-    public void create(final User user, final Authority authority) {
+    public void create(final User user) {
 
-        usersDao.create(user, authority);
+        usersDao.create(user);
     }
 
     /**
