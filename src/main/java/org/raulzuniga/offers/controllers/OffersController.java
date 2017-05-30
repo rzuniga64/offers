@@ -86,7 +86,6 @@ public class OffersController {
 
     /**
      * doCreate method.
-     * @param model the model
      * @param offer the offer
      * @param result result
      * @return the web page as a String
