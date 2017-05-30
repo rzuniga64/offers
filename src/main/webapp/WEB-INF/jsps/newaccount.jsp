@@ -73,6 +73,19 @@
                  id="detaisl">
 
         <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
+                <sf:input type="text"
+                          class="form-control"
+                          id="name"
+                          name="name"
+                          path="name"
+                          placeholder="Name"/>
+                <br />
+                <sf:errors path="name" cssClass="error"></sf:errors>
+            </div>
+        </div>
+        <div class="form-group">
             <label for="username" class="col-sm-2 control-label">Username</label>
             <div class="col-sm-10">
                 <sf:input type="text"
