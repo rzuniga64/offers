@@ -29,7 +29,7 @@ CREATE TABLE `offers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(100) NOT NULL,
   `text` text NOT NULL,
-  PRIMARY KEY (`id`, `username`),
+  PRIMARY KEY (`id`),
   INDEX `fk_offers_users_idx`(`username` ASC),
   CONSTRAINT `fk_offers_users`
   FOREIGN KEY (`username`)
