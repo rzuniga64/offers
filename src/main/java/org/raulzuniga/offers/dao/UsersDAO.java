@@ -1,20 +1,15 @@
 package org.raulzuniga.offers.dao;
 
-import org.raulzuniga.offers.models.Authority;
 import org.raulzuniga.offers.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -64,27 +59,20 @@ public class UsersDAO {
      * @return true if an Offer object is returned; false otherwise
      */
     @Transactional
-    public boolean create(final User user, final Authority authority) {
+    public boolean create(final User user) {
 
-        jdbc.update("insert into springtutorial.users (username, password, email, enabled) "
-                + "values(?, ?, ?, ?)", new PreparedStatementSetter() {
+        return jdbc.update("insert into springtutorial.users (username, password, authority, name, email, enabled) "
+                + "values(?, ?, ?, ?, ?, ?)", new PreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps) throws SQLException {
                 ps.setString(1, user.getUsername());
                 ps.setString(2, user.getPassword());
-                ps.setString(3, user.getEmail());
-                ps.setBoolean(4, user.getEnabled());
+                ps.setString(3, user.getAuthority());
+                ps.setString(4, user.getName());
+                ps.setString(5, user.getEmail());;
+                ps.setBoolean(6, user.getEnabled());
             }
-        });
-
-        return jdbc.update("insert into springtutorial.authorities (username, authority) "
-                + "values(?, ?)", new PreparedStatementSetter() {
-            @Override
-            public void setValues(PreparedStatement ps) throws SQLException {
-                ps.setString(1, authority.getUsername());
-                ps.setString(2, authority.getAuthority());
-            }
-        }) == 1;
+        }) ==1 ;
     }
 
     /**
@@ -106,9 +94,7 @@ public class UsersDAO {
      */
     public List<User> getAllUsers() {
 
-        return jdbc.query("select * from springtutorial.users, "
-                        + "springtutorial.authorities "
-                        + "where binary users.username=authorities.username",
+        return jdbc.query("select * from springtutorial.users ",
                 new BeanPropertyRowMapper<User>(User.class));
     }
 
@@ -119,21 +105,6 @@ public class UsersDAO {
     @Secured("ROLE_ADMIN") // method-level security.
     public List<User> getUsers() {
 
-        return jdbc.query("select * from springtutorial.users, "
-                + "springtutorial.authorities where binary users.username=authorities.username",
-                new RowMapper<User>() {
-
-            public User mapRow(final ResultSet resultSet, final int i)
-                    throws SQLException {
-
-                User user = new User();
-                user.setUsername(resultSet.getString("username"));
-                user.setEmail(resultSet.getString("email"));
-                user.setAuthority(resultSet.getString("authority"));
-                user.setEnabled(resultSet.getBoolean("enabled"));
-
-                return user;
-            }
-        });
+        return jdbc.query("select * from users", BeanPropertyRowMapper.newInstance(User.class));
     }
 }
