@@ -10,7 +10,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('rzuniga64','aggies92','Raul Zuniga','ROLE_ADMIN','rzuniga64@gmail.com', true);
+INSERT INTO `users` VALUES ('rzuniga64','aggies92','Raul Zuniga','ROLE_ADMIN','rzuniga64@gmail.com', '1');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
