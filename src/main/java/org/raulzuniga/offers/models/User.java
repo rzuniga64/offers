@@ -45,11 +45,13 @@ public class User {
      * */
     public User(final String newUsername,
                 final String newPassword,
+                final String newName,
                 final String newEmail,
                 final boolean newEnabled,
                 final String newAuthority) {
         this.username = newUsername;
         this.password = newPassword;
+        this.name = newName;
         this.email = newEmail;
         this.enabled = newEnabled;
         this.authority = newAuthority;
