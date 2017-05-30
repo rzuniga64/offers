@@ -7,6 +7,7 @@ import javax.validation.constraints.Size;
 
 /** User class. */
 public class User {
+
     /** User name. */
     @NotBlank
     @Size(min = 8, max = 15)
@@ -19,10 +20,15 @@ public class User {
     @Size(min = 8, max = 15)
     private String password;
 
+    /** Name. */
+    private String name;
+
     /** Email. */
     private String email;
+
     /** enabled? */
     private boolean enabled = false;
+
     /** Authority. */
     private String authority;
 
@@ -79,6 +85,22 @@ public class User {
      */
     public void setPassword(final String newPassword) {
         this.password = newPassword;
+    }
+
+    /**
+     * getName.
+     * @return name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * setName.
+     * @param newName newName
+     */
+    public void setName(String newName) {
+        this.name = newName;
     }
 
     /**
