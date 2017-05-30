@@ -18,11 +18,19 @@ public final class Offer {
     /** User. */
     private User user;
 
-    /** User. */
-    private String username;
-
     /** Default Constructor. */
     public Offer() { }
+
+    /**
+     * Constructor.
+     *  @param newUser newUser
+     *  @param newText newText
+     */
+    public Offer(final User newUser, final String newText) {
+
+        this.user = newUser;
+        this.text = newText;
+    }
 
     /**
      * Constructor.
@@ -33,17 +41,6 @@ public final class Offer {
     public Offer(final int newId, final User newUser, final String newText) {
 
         this.id = newId;
-        this.user = newUser;
-        this.text = newText;
-    }
-
-    /**
-     * Constructor.
-     *  @param newUser newUser
-     *  @param newText newText
-     */
-    public Offer(final User newUser, final String newText) {
-
         this.user = newUser;
         this.text = newText;
     }
@@ -154,6 +151,4 @@ public final class Offer {
     public String toString() {
         return "Offer [id=" + id + ", text=" + text + ", user=" + user + "]";
     }
-
-
 }

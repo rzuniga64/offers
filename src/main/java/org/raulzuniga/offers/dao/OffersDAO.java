@@ -1,10 +1,11 @@
 package org.raulzuniga.offers.dao;
 
 import org.raulzuniga.offers.models.Offer;
+import org.raulzuniga.offers.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.RowMapper;;
 import org.springframework.jdbc.core.namedparam.*;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,7 +39,7 @@ import static org.raulzuniga.offers.WebMvcConfig.dataSource;
 public class OffersDAO {
 
     /** JDBC template. */
-    private JdbcTemplate jdbc;
+    private NamedParameterJdbcTemplate jdbc;
 
     /** Constructor. */
     public OffersDAO() {
@@ -50,7 +51,8 @@ public class OffersDAO {
      *  Get JDBC connection.
      *  @return JDBC connection
      */
-    public JdbcTemplate getJdbc() {
+    public NamedParameterJdbcTemplate getJdbc() {
+
         return jdbc;
     }
 
@@ -63,54 +65,7 @@ public class OffersDAO {
     @Autowired
     public void setJdbcTemplate() {
 
-        this.jdbc = new JdbcTemplate(dataSource());
-    }
-
-    /**
-     *  Get offer.
-     *  @param id id
-     *  @return offer
-     */
-    public Offer getOffer(final int id) {
-
-        MapSqlParameterSource params = new MapSqlParameterSource("id", id);
-
-        return jdbc.queryForObject("select * from offers where id = :id", Offer.class);
-    }
-
-    /**
-     *  Get offers.
-     *  @return offers
-     */
-    public List<Offer> getOffers() {
-
-        return jdbc.query("select * from springtutorial.offers", new RowMapper<Offer>() {
-
-            public Offer mapRow(final ResultSet resultSet, final int i)
-                    throws SQLException {
-
-                Offer offer = new Offer();
-                offer.setId(resultSet.getInt("id"));
-                offer.setName(resultSet.getString("name"));
-                offer.setText(resultSet.getString("text"));
-                offer.setEmail(resultSet.getString("email"));
-
-                return offer;
-            }
-        });
-    }
-
-    /**
-     *  Delete a row based on id.
-     *  @param id id
-     *  @return true if row is deleted; false otherwise.
-     */
-    public boolean delete(final int id) {
-
-        MapSqlParameterSource params
-                = new MapSqlParameterSource("id", id);
-
-        return jdbc.update("delete from springtutorial.offers where id =:id", params) == 1;
+        this.jdbc = new NamedParameterJdbcTemplate(dataSource());
     }
 
     /**
@@ -121,31 +76,14 @@ public class OffersDAO {
      * @param offer offer
      * @return true if an Offer object is returned; false otherwise
      */
-    public boolean create(final Offer offer) {
+    public boolean create(Offer offer) {
 
-        return jdbc.update("insert into springtutorial.offers (name, email, text) "
-                + "values(?, ?, ?)", new PreparedStatementSetter() {
-            @Override
-            public void setValues(PreparedStatement preparedStatement) throws SQLException {
-                preparedStatement.setString(1, offer.getName());
-                preparedStatement.setString(2, offer.getEmail());
-                preparedStatement.setString(3, offer.getText());
-            }
-        }) == 1;
-    }
+        BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(
+                offer);
 
-    /**
-     *  Update an Offer object in the database.
-     * @param offer offer
-     * @return true if an Offer object is returned; false otherwise
-     */
-    public boolean update(final Offer offer) {
-
-        BeanPropertySqlParameterSource params =
-                new BeanPropertySqlParameterSource(offer);
-
-        return jdbc.update("update springtutorial.offers set name=:name, email=:email,"
-                              + "text:=text where id=:id", params) == 1;
+        return jdbc
+                .update("insert into offers (username, text) values (:username, :text)",
+                        params) == 1;
     }
 
     /**
@@ -158,10 +96,99 @@ public class OffersDAO {
     @Transactional
     public int[] create(final List<Offer> offers) {
 
-        SqlParameterSource[] params =
-                SqlParameterSourceUtils.createBatch(offers.toArray());
+        SqlParameterSource[] params = SqlParameterSourceUtils
+                .createBatch(offers.toArray());
 
-        return jdbc.batchUpdate("insert into springtutorial.offers (id, name, text, email)"
-                                + "values (:id, :name, :text, :email)");
+        return jdbc.batchUpdate("insert into springtutorial.offers (username, text)"
+                + "values (:username, :text)", params);
+    }
+
+    /**
+     *  Update an Offer object in the database.
+     *  @param offer offer
+     *  @return true if an Offer object is returned; false otherwise
+     */
+    public boolean update(Offer offer) {
+        BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(
+                offer);
+
+        return jdbc.update("update offers set text=:text where id=:id", params) == 1;
+    }
+
+    /**
+     *  Delete a row based on id.
+     *  @return true if row is deleted; false otherwise.
+     */
+    public boolean delete(final int id) {
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id", id);
+
+        return jdbc.update("delete from springtutorial.offers "
+                + "where id =:id", params) == 1;
+    }
+
+    /**
+     *  Get offer.
+     *  @return offer
+     */
+    public Offer getOffer(int id) {
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id", id);
+
+        return jdbc.queryForObject("select * from offers, users "
+                        + "where offers.username=users.username "
+                        + "and users.enabled=true", params,
+                        new RowMapper<Offer>() {
+
+                    public Offer mapRow(ResultSet rs, int rowNum)
+                            throws SQLException {
+                        User user = new User();
+                        user.setUsername(rs.getString("username"));
+                        user.setName(rs.getString("name"));
+                        user.setEmail(rs.getString("email"));
+                        user.setEnabled(true);
+                        user.setAuthority(rs.getString("authority"));
+
+                        Offer offer = new Offer();
+                        offer.setId(rs.getInt("id"));
+                        offer.setText(rs.getString("text"));
+                        offer.setUser(user);
+
+                        return offer;
+                    }
+        });
+    }
+
+    /**
+     *  Get offers.
+     *  @return offers
+     */
+    public List<Offer> getOffers() {
+
+        return jdbc.query("select * from offers, users "
+                + "where offers.username=users.username and users.enabled=true",
+                new RowMapper<Offer>() {
+
+            @Override
+            public Offer mapRow(final ResultSet rs, int rowNum)
+                    throws SQLException {
+
+                User user = new User();
+                user.setUsername(rs.getString("username"));
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setEnabled(true);
+                user.setAuthority(rs.getString("authority"));
+
+                Offer offer = new Offer();
+                offer.setId(rs.getInt("id"));
+                offer.setText((rs.getString("text")));
+                offer.setUser(user);
+
+                return offer;
+            }
+        });
     }
 }

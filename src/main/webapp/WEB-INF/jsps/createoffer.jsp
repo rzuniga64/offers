@@ -22,24 +22,13 @@
                  modelAttribute="offer">
 
             <div class="form-group">
-                <label for="name">Name</label>
-                <sf:input type="text"
+                <label for="username">Username</label>
+                <sf:input type="username"
                           class="form-control"
-                          id="name"
-                          name="name"
-                          path="name"
-                          placeholder="Name"/>
-                <br />
-                <sf:errors path="name" cssClass="error"></sf:errors>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <sf:input type="email"
-                          class="form-control"
-                          id="email"
-                          name="email"
-                          path="email"
-                          placeholder="Email"/>
+                          id="username"
+                          name="username"
+                          path="username"
+                          placeholder="Username"/>
                 <br />
                 <sf:errors path="email" cssClass="error"></sf:errors>
             </div>
