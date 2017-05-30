@@ -36,6 +36,7 @@ public class UsersDAO {
      *  @return JDBC connection
      */
     public JdbcTemplate getJdbcTemplate() {
+
         return this.jdbc;
     }
 
@@ -47,6 +48,7 @@ public class UsersDAO {
      */
     @Autowired
     public void setJdbcTemplate() {
+
         this.jdbc = new JdbcTemplate(dataSource());
     }
 
@@ -105,6 +107,7 @@ public class UsersDAO {
     @Secured("ROLE_ADMIN") // method-level security.
     public List<User> getUsers() {
 
-        return jdbc.query("select * from users", BeanPropertyRowMapper.newInstance(User.class));
+        return jdbc.query("select * from users",
+                BeanPropertyRowMapper.newInstance(User.class));
     }
 }
