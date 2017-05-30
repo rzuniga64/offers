@@ -21,31 +21,31 @@ USE `springtutorial`;
 -- Table structure for table `offers`
 --
 
-DROP TABLE IF EXISTS `offers`;
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `springtutorial`.`offers`;
+DROP TABLE IF EXISTS `springtutorial`.`users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `offers` (
+CREATE TABLE IF NOT EXISTS `offers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(100) NOT NULL,
+  `username` varchar(60) NOT NULL,
   `text` text NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`id`, `username`),
   INDEX `fk_offers_users_idx`(`username` ASC),
   CONSTRAINT `fk_offers_users`
   FOREIGN KEY (`username`)
-  REFERENCES `users`(`username`)
+  REFERENCES `springtutorial`.`users`(`username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(60) NOT NULL,
-  `password` varchar(80) NOT NULL,
+  `password` varchar(80) NULL,
   `name` varchar(100) NOT NULL,
-  `authority` varchar(45) NOT NULL,
+  `authority` varchar(45) NULL,
   `email` varchar(60) NOT NULL,
-  `enabled` bool NOT NULL DEFAULT TRUE,
+  `enabled` bool NULL DEFAULT TRUE,
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
