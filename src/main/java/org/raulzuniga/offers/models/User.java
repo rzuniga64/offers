@@ -21,6 +21,8 @@ public class User {
     private String password;
 
     /** Name. */
+    @NotBlank
+    @Size(min = 8, max = 60)
     private String name;
 
     /** Email. */

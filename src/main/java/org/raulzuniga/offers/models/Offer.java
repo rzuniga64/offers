@@ -19,7 +19,10 @@ public final class Offer {
     private User user;
 
     /** Default Constructor. */
-    public Offer() { }
+    public Offer() {
+
+        this.user = new User();
+    }
 
     /**
      * Constructor.
@@ -99,6 +102,7 @@ public final class Offer {
      * @return the username.
      */
     public String getUsername() {
+
         return user.getUsername();
     }
 

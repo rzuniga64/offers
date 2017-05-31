@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.sql.SQLSyntaxErrorException;
 import java.util.List;
 
@@ -78,7 +79,6 @@ public class OffersController {
     @RequestMapping("/createoffer")
     public String createOffer(final Model model) {
 
-        System.out.println("In createOffers");
         model.addAttribute("offer", new Offer());
 
         return "createoffer";
@@ -92,11 +92,15 @@ public class OffersController {
      */
     @RequestMapping(value = "/docreate", method = RequestMethod.POST)
     public String doCreate(@Valid final Offer offer,
-                           final BindingResult result) {
+                           final BindingResult result,
+                           Principal principal) {
 
         if (result.hasErrors()) {
             return "createoffer";
         }
+
+        String username = principal.getName();
+        offer.getUser().setUsername(username);
 
         offersService.create(offer);
 
