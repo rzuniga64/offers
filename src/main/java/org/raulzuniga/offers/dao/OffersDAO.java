@@ -139,27 +139,9 @@ public class OffersDAO {
 
         return jdbc.queryForObject("select * from offers, users "
                         + "where offers.username=users.username "
-                        + "and users.enabled=true"
+                        + "and users.enabled=true "
                         + "and id = :id", params,
-                        new RowMapper<Offer>() {
-
-                    public Offer mapRow(ResultSet rs, int rowNum)
-                            throws SQLException {
-                        User user = new User();
-                        user.setUsername(rs.getString("username"));
-                        user.setName(rs.getString("name"));
-                        user.setEmail(rs.getString("email"));
-                        user.setEnabled(true);
-                        user.setAuthority(rs.getString("authority"));
-
-                        Offer offer = new Offer();
-                        offer.setId(rs.getInt("id"));
-                        offer.setText(rs.getString("text"));
-                        offer.setUser(user);
-
-                        return offer;
-                    }
-        });
+                        new OfferRowMapper());
     }
 
     /**
@@ -170,26 +152,17 @@ public class OffersDAO {
 
         return jdbc.query("select * from offers, users "
                 + "where offers.username=users.username and users.enabled=true",
-                new RowMapper<Offer>() {
+                new OfferRowMapper()) ;
+    }
 
-            @Override
-            public Offer mapRow(final ResultSet rs, int rowNum)
-                    throws SQLException {
+    /**
+     *  Get offers.
+     *  @return offers
+     */
+    public List<Offer> getOffers(String username) {
 
-                User user = new User();
-                user.setUsername(rs.getString("username"));
-                user.setName(rs.getString("name"));
-                user.setEmail(rs.getString("email"));
-                user.setEnabled(true);
-                user.setAuthority(rs.getString("authority"));
-
-                Offer offer = new Offer();
-                offer.setId(rs.getInt("id"));
-                offer.setText((rs.getString("text")));
-                offer.setUser(user);
-
-                return offer;
-            }
-        });
+        return jdbc
+                .query("select * from offers, users where offers.username=users.username and users.enabled=true and offers.username=:username",
+                        new MapSqlParameterSource("username", username), new OfferRowMapper());
     }
 }
