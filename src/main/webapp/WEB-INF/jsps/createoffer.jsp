@@ -30,7 +30,7 @@
                           path="username"
                           placeholder="Username"/>
                 <br />
-                <sf:errors path="email" cssClass="error"></sf:errors>
+                <sf:errors path="username" cssClass="error"></sf:errors>
             </div>
             <div class="form-group">
                 <label for="text">Your offer</label>
